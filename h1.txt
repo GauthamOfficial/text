@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+
+<body>
+
+    <h1>User Registration Form</h1>
+    <form method="post" action="userregister.php" onsubmit="return validation()" name="f1">
+
+        <div>
+            <label style="display:inline-block; width: 150px;" for="username">Username:</label>
+            <input type="text" name="username" placeholder="Enter your Username" id="username"> <br><br>
+        </div>
+
+        <div>
+            <label style="display:inline-block; width: 150px;" for="email">Email:</label>
+            <input type="text" name="email" placeholder="Enter your Email" id="email"> <br><br>
+        </div>
+
+        <div>
+            <label style="display:inline-block; width: 150px;" for="userPassword">Password:</label>
+            <input type="text" name="userPassword" placeholder="Enter your Password" id="userpassword"> <br><br>
+        </div>
+
+        <div>
+            <label style="display:inline-block; width: 150px;" for="confirmPassword">Confirm Password:</label>
+            <input type="text" name="confirmPassword" placeholder="Confirm your Password" id="confirmPassword"> <br><br>
+        </div>
+
+        <button type="submit" name="submit">Register</button>
+
+    </form>
+
+    <script src="validation.js"></script>
+</body>
+
+</html>
+
+
+function validation() {
+    var UserName = document.f1.username.value;
+    var Email = document.f1.email.value;
+    var UserPassword = document.f1.userPassword.value;
+    var CPassword = document.f1.confirmPassword.value;
+
+    function validateEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    }
+
+    function validatePassword(password) {
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+        return regex.test(password);
+    }
+
+    if (UserName === "" && Email === "" && UserPassword === "" && CPassword === "") {
+        alert("All fields are empty");
+        return false;
+    }
+
+    else {
+        if (UserName === "") {
+            alert("User Name is empty");
+            return false;
+        }
+
+        if (Email === "") {
+            alert("Email is empty");
+            return false;
+        }
+
+        if (!validateEmail(Email)) {
+            alert("Invalid Email format");
+            return false;
+        }
+
+        if (UserPassword === "") {
+            alert("User Password is empty");
+            return false;
+        }
+
+        if (!validatePassword(UserPassword)) {
+            alert("Password must be at least 8 characters, contain one uppercase letter, one lowercase letter, one number, and one special character.");
+            return false;
+        }
+
+        if (CPassword === "") {
+            alert("Confirm Password is empty");
+            return false;
+        }
+
+        if (UserPassword !== CPassword) {
+            alert("Passwords do not match");
+            return false;
+        }
+    }
+    alert("Form submitted successfully!");
+    return true;
+}
+
+
+
+
+<?php
+$dbServerName = "localhost";
+$dbUserName = "root";
+$dbPassword = "";
+$dbName = "dbuser";
+
+$connect = mysqli_connect($dbServerName, $dbUserName, $dbPassword, $dbName);
+if (!$connect) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+?>
+
+
+ <?php
+include_once 'dbc.php';
+$username = $_POST['username'];
+$email = $_POST['email'];
+$userPassword = $_POST['userPassword'];
+$confirmPassword = $_POST['confirmPassword'];
+
+$sql = "INSERT INTO users(username, email, userPassword, confirmPassword) VALUES ('$username', '$email', '$userPassword', '$confirmPassword')";
+$result = mysqli_query($connect, $sql);
+
+header("Location:user.php?signup=success");
+ ?> 
+
