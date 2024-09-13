@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Registration</title>
+</head>
+
+<body>
+
+    <h1>User Registration Form</h1>
+    <form method="post" action="userregister.php" onsubmit="return validation()" name="f1">
+
+        <div>
+            <label style="display:inline-block; width: 150px;" for="username">Username:</label>
+            <input type="text" name="username" placeholder="Enter your Username" id="username"> <br><br>
+        </div>
+
+        <div>
+            <label style="display:inline-block; width: 150px;" for="email">Email:</label>
+            <input type="text" name="email" placeholder="Enter your Email" id="email"> <br><br>
+        </div>
+
+        <div>
+            <label style="display:inline-block; width: 150px;" for="userPassword">Password:</label>
+            <input type="text" name="userPassword" placeholder="Enter your Password" id="userpassword"> <br><br>
+        </div>
+
+        <div>
+            <label style="display:inline-block; width: 150px;" for="confirmPassword">Confirm Password:</label>
+            <input type="text" name="confirmPassword" placeholder="Confirm your Password" id="confirmPassword"> <br><br>
+        </div>
+
+        <button type="submit" name="submit">Register</button>
+
+    </form>
+
+    <script src="validation.js"></script>
+</body>
+
+</html>
